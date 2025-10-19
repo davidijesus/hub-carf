@@ -73,56 +73,51 @@ Esta é a camada que entrega o valor ao usuário final.
 ## 4. Esquema Visual da Arquitetura
 
 ```mermaid
-graph TD
-    subgraph Fontes Externas
-        API_SERPRO[API Serpro]
-        API_JUS[API JusBrasil]
-        API_LLM[API IA Generativa (Insights)]
+flowchart TD
+    subgraph Externas["Fontes Externas"]
+        API_SERPRO["API Serpro<br/>(Dívida Ativa)"]
+        API_JUS["API JusBrasil<br/>(Processos)"]
+        API_LLM["IA Generativa<br/>(Insights)"]
     end
 
-    subgraph Fontes Internas
-        DB_CARF[Bases do CARF (e-Processo)]
-        DOCS_CARF[Documentos (PDF/Textos)]
+    subgraph Internas["Fontes Internas"]
+        DB_CARF["Bases CARF<br/>(e-Processo)"]
+        DOCS_CARF["Documentos<br/>(PDF/Textos)"]
     end
 
-    subgraph "Hub CARF (Plataforma em Nuvem/VPC)"
-        
-        subgraph "Camada de Integração (Airflow)"
-            ETL_JOB[Pipeline de Ingestão/ETL]
-            IA_EXTRACTOR[Extrator de IA (Documentos)]
+    subgraph HubCARF["Hub CARF - Plataforma"]
+        subgraph Integracao["Camada de Integração"]
+            ETL_JOB["Pipeline ETL<br/>(Airflow)"]
+            IA_EXTRACTOR["Extrator IA<br/>(Documentos)"]
         end
 
-        subgraph "Camada de Análise (Analytics Engine)"
-            ML_MODEL[Modelo Preditivo (XGBoost)]
-            HEURISTICA[Motor de Heurísticas]
-            WAREHOUSE[Data Warehouse (BigQuery)]
+        subgraph Analise["Camada de Análise"]
+            ML_MODEL["Modelo Preditivo<br/>(XGBoost)"]
+            HEURISTICA["Motor de<br/>Heurísticas"]
+            WAREHOUSE["Data Warehouse<br/>(BigQuery)"]
         end
 
-        subgraph "Camada de Aplicação (Backend/Frontend)"
-            API_BACKEND[API Backend (FastAPI)]
-            APP_FRONTEND[Frontend (React)]
-            EMAIL_SVC[Serviço de E-mail]
+        subgraph Aplicacao["Camada de Aplicação"]
+            API_BACKEND["API Backend<br/>(FastAPI)"]
+            APP_FRONTEND["Frontend<br/>(React)"]
+            EMAIL_SVC["Serviço de<br/>E-mail"]
         end
-
-        direction TB
     end
 
-    subgraph Usuários
-        GESTOR[Gestor CARF]
-        CONTRIBUINTE[Contribuinte]
+    subgraph Usuarios["Usuários"]
+        GESTOR["Gestor CARF"]
+        CONTRIBUINTE["Contribuinte"]
     end
 
-    %% Fluxo de Dados
     DB_CARF --> ETL_JOB
     DOCS_CARF --> IA_EXTRACTOR
     
     ETL_JOB --> API_SERPRO
     ETL_JOB --> API_JUS
-    
     API_SERPRO --> ETL_JOB
     API_JUS --> ETL_JOB
+    
     IA_EXTRACTOR --> ETL_JOB
-
     ETL_JOB --> WAREHOUSE
     ETL_JOB --> ML_MODEL
     
@@ -130,7 +125,7 @@ graph TD
     HEURISTICA --> WAREHOUSE
     
     WAREHOUSE --> API_BACKEND
-    WAREHOUSE --> ML_MODEL[Retreinamento]
+    WAREHOUSE -.Retreinamento.-> ML_MODEL
 
     API_BACKEND --> APP_FRONTEND
     API_BACKEND --> API_LLM
@@ -138,6 +133,10 @@ graph TD
     
     WAREHOUSE --> EMAIL_SVC
     EMAIL_SVC --> CONTRIBUINTE
-
     GESTOR --> APP_FRONTEND
+
+    style HubCARF fill:#e1f5ff
+    style Externas fill:#fff4e6
+    style Internas fill:#f0f0f0
+    style Usuarios fill:#e8f5e9
 ```

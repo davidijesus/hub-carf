@@ -41,6 +41,10 @@ const config: Config = {
     ],
   ],
 
+  markdown: {
+    mermaid: true,
+  },
+
   themes: ['@docusaurus/theme-mermaid'],
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
@@ -48,7 +52,7 @@ const config: Config = {
       title: 'Hub CARF',
       logo: { alt: 'Logo', src: 'img/logo.svg' },
       items: [
-        { to: '/docs/intro', label: 'Docs', position: 'left' },
+        { to: '/docs', label: 'Docs', position: 'left' },
         { to: '/blog', label: 'Blog', position: 'left' },
         { href: 'https://github.com/davidijesus/hub-carf', label: 'GitHub', position: 'right' },
       ],
