@@ -3,6 +3,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+
+
 const config: Config = {
   title: 'Hub CARF',
   tagline: 'Documentação oficial',
@@ -39,6 +41,7 @@ const config: Config = {
     ],
   ],
 
+  themes: ['@docusaurus/theme-mermaid'],
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
@@ -54,9 +57,12 @@ const config: Config = {
       style: 'dark',
       copyright: `© ${new Date().getFullYear()} Hub CARF.`,
     },
-    prism: {
+  prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    mermaid: {
+      theme: {light: 'neutral', dark: 'forest'},
     },
   },
 };
