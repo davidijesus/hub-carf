@@ -1,3 +1,4 @@
+// website/docusaurus.config.ts
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
@@ -7,7 +8,7 @@ const config: Config = {
   tagline: 'Documentação oficial',
   favicon: 'img/favicon.ico',
 
-  // GitHub Pages
+  // GitHub Pages (projeto)
   url: 'https://davidijesus.github.io',
   baseUrl: '/hub-carf/',
   organizationName: 'davidijesus',
@@ -25,11 +26,11 @@ const config: Config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.ts'),
-          editUrl: 'https://github.com/davidijesus/hub-carf/edit/main/',
+          editUrl: 'https://github.com/davidijesus/hub-carf/edit/main/website/',
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/davidijesus/hub-carf/edit/main/',
+          editUrl: 'https://github.com/davidijesus/hub-carf/edit/main/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
